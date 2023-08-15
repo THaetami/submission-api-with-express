@@ -1,0 +1,354 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "API Documentation",
+        "description": "A minimal and easy to follow example of what you need to create a CRUD style API in NodeJs using TypeScript",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:7000/",
+            "description": "Local Dev"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Users",
+            "description": "API for users in the system"
+        }
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/api/v1/users": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Create a new user in the system using a unique username.",
+                "requestBody": {
+                    "description": "User Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "User login in system",
+                "requestBody": {
+                    "description": "User Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/User"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Retrieve data of the currently logged-in user.",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Failed. Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "description": "ID of the user that we want to match",
+                    "type": "number"
+                }
+            ],
+            "delete": {
+                "summary": "User logout in system",
+                "tags": [
+                    "Auth"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Logout user with id",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "401": {
+                        "description": "Failed. Unauthenticated"
+                    }
+                }
+            }
+        },
+        "/api/v1/sales": {
+            "post": {
+                "tags": [
+                    "Sales"
+                ],
+                "summary": "Create a new sales in the system.",
+                "requestBody": {
+                    "description": "Sales Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Sales"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/sal_id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Sales"
+                ],
+                "summary": "Retrieve all sales in the system", 
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/v1/sales/{sal_id}": {
+            "parameters": [
+                {
+                    "name": "sal_id",
+                    "in": "path",
+                    "required": true,
+                    "description": "sal_id of the sales that we want to match",
+                    "schema": {
+                        "$ref": "#/definitions/sal_id"
+                      }
+                }
+            ],
+            "get": {
+                "summary": "Get sales by sal_id in system",
+                "tags": [
+                    "Sales"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Failed. Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Failed. Sales not found"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update sales with given sal_id",
+                "tags": [
+                    "Sales"
+                ],
+                "requestBody": {
+                    "description": "Sales Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Sales"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "sal_id",
+                        "required": true,
+                        "description": "Sales with new values of properties",
+                        "schema": {
+                            "$ref": "#/definitions/sal_id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Sales"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    },
+                    "404": {
+                        "description": "Failed. Cat not found."
+                    },
+                    "422": {
+                        "description": "Failed. Unprocessable Entity"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete sales in system",
+                "tags": [
+                    "Sales"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "sal_id",
+                        "required": true,
+                        "description": "Delete sales with sal_id",
+                        "schema": {
+                            "$ref": "#/definitions/sal_id"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "401": {
+                        "description": "Failed. Unauthenticated"
+                    },
+                    "404": {
+                        "description": "Failed. Sales not found"
+                    },
+                    "422": {
+                        "description": "Failed. Unprocessable Entity"
+                    }
+                }
+            }
+        }
+
+    },
+    "definitions": {
+        "id": {
+            "properties": {
+                "id": {
+                    "type": "number"
+                }
+            }
+        },
+        "sa_id": {
+            "properties": {
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "User": {
+            "type": "object",
+            "properties": {
+                "username": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                }
+            }
+        },
+        "Sales": {
+            "type": "object",
+            "properties": {
+                "sal_nm": {
+                    "type": "string"
+                },
+                "sal_bekerjasejak": {
+                    "type": "string",
+                    "format": "date"
+                },
+                "sal_kta_id": {
+                    "type": "string",
+                    "enum": ["BAL", "JKT", "SMR", "BGR"]
+                }
+            }
+        }
+    }
+}
