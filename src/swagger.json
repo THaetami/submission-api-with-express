@@ -193,6 +193,9 @@
                 "responses": {
                     "200": {
                         "description": "OK"
+                    },
+                    "401": {
+                        "description": "Failed. Unauthenticated"
                     }
                 }
             }
@@ -206,7 +209,7 @@
                     "description": "sal_id of the sales that we want to match",
                     "schema": {
                         "$ref": "#/definitions/sal_id"
-                      }
+                    }
                 }
             ],
             "get": {
@@ -242,17 +245,6 @@
                         }
                     }
                 },
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "sal_id",
-                        "required": true,
-                        "description": "Sales with new values of properties",
-                        "schema": {
-                            "$ref": "#/definitions/sal_id"
-                        }
-                    }
-                ],
                 "responses": {
                     "201": {
                         "description": "OK",
@@ -262,6 +254,9 @@
                     },
                     "400": {
                         "description": "Failed. Bad post data."
+                    },
+                    "401": {
+                        "description": "Failed. Unauthenticated"
                     },
                     "404": {
                         "description": "Failed. Cat not found."
@@ -275,17 +270,6 @@
                 "summary": "Delete sales in system",
                 "tags": [
                     "Sales"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "sal_id",
-                        "required": true,
-                        "description": "Delete sales with sal_id",
-                        "schema": {
-                            "$ref": "#/definitions/sal_id"
-                        }
-                    }
                 ],
                 "responses": {
                     "204": {
@@ -316,7 +300,7 @@
                 }
             }
         },
-        "sa_id": {
+        "sal_id": {
             "properties": {
                 "id": {
                     "type": "string"
